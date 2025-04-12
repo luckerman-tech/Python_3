@@ -4,15 +4,15 @@ while True:
 
     while len(string) != 0:
         spInd = string.find(' ')
-        nums.append(string[0:spInd] if spInd != -1 else string) if string[0] != ' ' else ...
+        nums.append(string[0:spInd] if spInd != -1 else string) if string[0] != ' ' else False
         string = string.replace(string[0:spInd+1], '', 1) if spInd != -1 else string.replace(string, '', 1)
 
     try:
-        nums[0]
         nums = list(map(lambda num: int(num), nums))
-        break
-    except IndexError:
-        print("Список не может быть пустым!")
+        if nums:
+            break
+        else:
+            print("Список не может быть пустым!")
     except ValueError:
         print("Список может содержать только целые числа!")
 
@@ -21,7 +21,7 @@ while True:
     m = input("Введите множитель (по умолчанию 2): ")
 
     try:
-        m = int(m) if m != '' else ...
+        m = int(m) if m else None
         break
     except:
         print("Множитель может быть только целым числом!")
