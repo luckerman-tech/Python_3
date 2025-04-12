@@ -1,73 +1,42 @@
-def plus():
-    a = input("Слагаемое 1: ")
+def data_entering(prompt: str, e: str):
+    num = input(prompt)
     try:
-        a = float(a)
+        num = float(num)
     except:
-        ...
-    if isinstance(a, str):
-        raise ValueError("Слагаемое должно быть числом!")
+        False
+    if isinstance(num, str):
+        raise ValueError(e)
+    return num
 
-    b = input("Слагаемое 2: ")
-    try:
-        b = float(b)
-    except:
-        ...
-    if isinstance(b, str):
-        raise ValueError("Слагаемое должно быть числом!")
+
+def res_processing(result):
+    if (result == round(result)):
+        result = int(result)
+    return f">>> {result}\n-------------------------"
+
+
+def plus():
+    a = data_entering("Слагаемое 1: ", "Слагаемое должно быть числом!")
+    b = data_entering("Слагаемое 2: ", "Слагаемое должно быть числом!")
 
     res = a + b
-
-    if (res == round(res)):
-        res = int(res)
-    return f">>> {res}\n-------------------------"
+    return res_processing(res)
 
 
 def minus():
-    a = input("Уменьшаемое: ")
-    try:
-        a = float(a)
-    except:
-        ...
-    if isinstance(a, str):
-        raise ValueError("Уменьшаемое должно быть числом!")
-
-    b = input("Вычитаемое: ")
-    try:
-        b = float(b)
-    except:
-        ...
-    if isinstance(b, str):
-        raise ValueError("Вычитаемое должно быть числом!")
+    a = data_entering("Уменьшаемое: ", "Уменьшаемое должно быть числом!")
+    b = data_entering("Вычитаемое: ", "Вычитаемое должно быть числом!")
 
     res = a - b
-
-    if (res == round(res)):
-        res = int(res)
-    return f">>> {res}\n-------------------------"
+    return res_processing(res)
 
 
 def mult():
-    a = input("Множитель 1: ")
-    try:
-        a = float(a)
-    except:
-        ...
-    if isinstance(a, str):
-        raise ValueError("Множитель должен быть числом!")
-
-    b = input("Множитель 2: ")
-    try:
-        b = float(b)
-    except:
-        ...
-    if isinstance(b, str):
-        raise ValueError("Множитель должен быть числом!")
+    a = data_entering("Множитель 1: ", "Множитель должен быть числом!")
+    b = data_entering("Множитель 2: ", "Множитель должен быть числом!")
 
     res = a * b
-
-    if (res == round(res)):
-        res = int(res)
-    return f">>> {res}\n-------------------------"
+    return res_processing(res)
 
 
 def division():
@@ -75,22 +44,9 @@ def division():
     option = input("Выберите вид деления (цифра от 1 до 3 включительно): ")
     if option not in ['1', '2', '3']: raise ValueError("Неизвестное значение!")
 
-    a = input("Делимое: ")
-    try:
-        a = float(a)
-    except:
-        ...
-    if isinstance(a, str):
-        raise ValueError("Делимое должно быть числом!")
-
-    b = input("Делитель: ")
-    try:
-        b = float(b)
-    except:
-        ...
-    if isinstance(b, str):
-        raise ValueError("Делитель должен быть числом!")
-    elif b == 0:
+    a = data_entering("Делимое: ", "Делимое должно быть числом!")
+    b = data_entering("Делитель: ", "Делитель должен быть числом!")
+    if b == 0:
         raise ZeroDivisionError("Делить на ноль нельзя!")
 
     if option == '1':
@@ -100,33 +56,16 @@ def division():
     else:
         res = a // b
 
-    if (res == round(res)):
-        res = int(res)
-    return f">>> {res}\n-------------------------"
+    return res_processing(res)
 
 
 def power():
-    a = input("Основание: ")
-    try:
-        a = float(a)
-    except:
-        ...
-    if isinstance(a, str):
-        raise ValueError("Основание должно быть числом!")
-
-    b = input("Показатель: ")
-    try:
-        b = float(b)
-    except:
-        ...
-    if isinstance(b, str):
-        raise ValueError("Показатель должен быть числом!")
+    a = data_entering("Основание: ", "Основание должно быть числом!")
+    b = data_entering("Показатель: ", "Показатель должен быть числом!")
 
     res = a ** b
-
     if not isinstance(res, complex):
-        if res == round(res):
-            res = int(res)
+        return res_processing(res)
     return f">>> {res}\n-------------------------"
 
 
@@ -135,7 +74,7 @@ def fact():
     try:
         a = int(a)
     except:
-        ...
+        False
     if isinstance(a, str) or a < 0:
         raise ValueError("Должно быть введено целое неотрицательное число!")
     
@@ -152,41 +91,31 @@ def mean():
 
     while len(string) != 0:
         index = string.find(' ')
-        nums.append(string[0:index] if index != -1 else string) if string[0] != ' ' else ...
+        nums.append(string[0:index] if index != -1 else string) if string[0] != ' ' else False
         string = string.replace(string[0:index+1], '', 1) if index != -1 else string.replace(string, '', 1)
     
     try:
-        nums[0]
         nums = list(map(lambda num: float(num), nums))
-    except IndexError:
-        raise ValueError("Список не может быть пустым!")
     except ValueError:
         raise ValueError("Список может содержать только числа!")
+    if not(nums):
+        raise ValueError("Список не может быть пустым!")
     
     sum = 0
     for num in nums:
         sum += num
     res = sum / len(nums)
 
-    if (res == round(res)):
-        res = int(res)
-    return f">>> {res}\n-------------------------"
+    return res_processing(res)
 
 
 def sqrt():
-    a = input("Число, из которого извлекается квадратный корень: ")
-    try:
-        a = float(a)
-    except:
-        ...
-    if isinstance(a, str) or a < 0:
+    a = data_entering("Число, из которого извлекается квадратный корень: ", "Должно быть введено неотрицательное число!")
+    if a < 0:
         raise ValueError("Должно быть введено неотрицательное число!")
     
     res = a ** 0.5
-
-    if (res == round(res)):
-        res = int(res)
-    return f">>> {res}\n-------------------------"
+    return res_processing(res)
 
 
 def choice(ch):
