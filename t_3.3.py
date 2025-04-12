@@ -1,4 +1,4 @@
-def function_name(search: str, status: bool, *args: object, **kwargs: object) -> object:
+def function_name(search: str, status: bool, *args: tuple, **kwargs: dict) -> object:
     """
     В зависимости от значений параметров search и status либо выводит список позиционных аргументов,
     являющихся целыми числами, либо выводит строку, в которой объединены все позиционные аргументы,
@@ -8,8 +8,8 @@ def function_name(search: str, status: bool, *args: object, **kwargs: object) ->
     Args:
         search (str): определяет, позиционные или именованные аргументы будут обрабатываться.
         status (bool): определяет то, в каком виде будут выводиться позиционные аргументы.
-        *args (object): позиционные аргументы.
-        **kwargs (object): именованные аргументы.
+        *args (tuple): позиционные аргументы.
+        **kwargs (dict): именованные аргументы.
     
     Returns:
         object: список позиционных аргументов, являющихся целыми числами (list[int]),
